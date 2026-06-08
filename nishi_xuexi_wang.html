@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>倪師學習網</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Noto Serif SC', serif; background: #faf9f6; color: #1a1a1a; min-height: 100vh; }
+
+/* NAV */
+.site-nav { padding: 0 40px; height: 60px; display: flex; align-items: center; gap: 16px; border-bottom: 0.5px solid #ddd; background: #fff; position: sticky; top: 0; z-index: 100; }
+.nav-left { display: flex; align-items: baseline; gap: 14px; }
+.site-title { font-size: 22px; font-weight: 700; color: #1a1a1a; letter-spacing: 0.06em; cursor: pointer; }
+.site-title span { color: #BA7517; }
+.nav-sub { font-size: 12px; color: #888; font-family: sans-serif; }
+.nav-badge { margin-left: auto; font-size: 11px; font-family: sans-serif; color: #aaa; border: 0.5px solid #ddd; padding: 3px 10px; border-radius: 4px; }
+
+/* HOME */
+.home-hero { padding: 48px 40px 32px; border-bottom: 0.5px solid #eee; max-width: 760px; }
+.home-hero h1 { font-size: 36px; font-weight: 700; letter-spacing: 0.05em; margin-bottom: 12px; }
+.home-hero h1 span { color: #BA7517; }
+.home-hero p { font-size: 14px; color: #666; font-family: sans-serif; line-height: 1.8; max-width: 560px; }
+
+.subjects-section { padding: 32px 40px; }
+.section-label { font-size: 11px; font-family: sans-serif; color: #aaa; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 20px; }
+.subjects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 900px; }
+
+.subject-card { background: #fff; border: 0.5px solid #e5e5e5; border-radius: 12px; padding: 24px; cursor: pointer; position: relative; overflow: hidden; transition: box-shadow 0.2s, transform 0.15s; min-height: 170px; display: flex; flex-direction: column; gap: 8px; }
+.subject-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.08); transform: translateY(-2px); }
+.subject-card.locked:hover { transform: none; box-shadow: none; cursor: default; }
+.card-char { font-size: 56px; font-weight: 700; line-height: 1; position: absolute; right: 16px; bottom: 10px; opacity: 0.06; }
+.card-accent { width: 32px; height: 3px; border-radius: 2px; margin-bottom: 6px; }
+.card-name { font-size: 19px; font-weight: 600; letter-spacing: 0.04em; }
+.card-sub { font-size: 12px; color: #888; font-family: sans-serif; line-height: 1.6; }
+.card-status { margin-top: auto; font-size: 11px; font-family: sans-serif; }
+.status-live { color: #3B6D11; background: #EAF3DE; padding: 2px 9px; border-radius: 99px; }
+.status-soon { color: #bbb; }
+
+/* PAGE VIEWS */
+.view { display: none; }
+.view.active { display: block; }
+
+.page-nav { display: flex; align-items: center; gap: 12px; padding: 12px 24px; border-bottom: 0.5px solid #eee; background: #f9f9f7; }
+.back-btn { background: #fff; border: 0.5px solid #ddd; cursor: pointer; padding: 5px 14px; font-size: 13px; font-family: sans-serif; color: #666; border-radius: 6px; display: flex; align-items: center; gap: 5px; }
+.back-btn:hover { background: #f5f5f5; }
+.breadcrumb { font-size: 13px; color: #888; font-family: sans-serif; }
+.breadcrumb span { color: #1a1a1a; font-weight: 500; }
+
+/* BOT */
+.bot-wrap { display: flex; height: calc(100vh - 121px); }
+.bot-sidebar { width: 200px; flex-shrink: 0; border-right: 0.5px solid #eee; display: flex; flex-direction: column; background: #f9f9f7; }
+.sidebar-head { padding: 12px 16px 9px; border-bottom: 0.5px solid #eee; font-size: 10.5px; font-weight: 500; color: #aaa; font-family: sans-serif; letter-spacing: 0.08em; text-transform: uppercase; }
+.topic-list { flex: 1; overflow-y: auto; padding: 5px 0; }
+.topic-btn { display: block; width: 100%; text-align: left; padding: 7px 16px; font-size: 12.5px; font-family: sans-serif; border: none; background: transparent; color: #666; cursor: pointer; line-height: 1.5; }
+.topic-btn:hover { background: #f0ede8; }
+.topic-btn.active { background: #FAEEDA; color: #BA7517; }
+.quiz-area { padding: 12px 14px; border-top: 0.5px solid #eee; }
+.quiz-btn { width: 100%; padding: 8px 0; font-size: 13px; font-weight: 500; font-family: sans-serif; background: #E6F1FB; color: #185FA5; border: 0.5px solid #B5D4F4; border-radius: 8px; cursor: pointer; }
+
+.bot-main { flex: 1; display: flex; flex-direction: column; min-width: 0; background: #fff; }
+.messages-area { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 12px; }
+.msg-row { display: flex; }
+.msg-row.user { justify-content: flex-end; }
+.msg-avatar { width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0; background: #FAEEDA; color: #BA7517; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; margin-right: 8px; margin-top: 2px; font-family: sans-serif; }
+.msg-bubble { max-width: 72%; padding: 10px 14px; font-size: 14px; font-family: sans-serif; line-height: 1.7; word-break: break-word; white-space: pre-wrap; }
+.msg-bubble.assistant { border-radius: 3px 14px 14px 14px; background: #f7f5f0; color: #1a1a1a; border: 0.5px solid #e8e4dd; }
+.msg-bubble.user { border-radius: 14px 3px 14px 14px; background: #E6F1FB; color: #185FA5; border: 0.5px solid #B5D4F4; }
+.quick-row { padding: 0 20px 8px; display: flex; gap: 6px; flex-wrap: wrap; }
+.quick-chip { padding: 4px 10px; font-size: 12px; font-family: sans-serif; border-radius: 999px; background: #f5f3ef; color: #666; border: 0.5px solid #ddd; cursor: pointer; white-space: nowrap; }
+.quick-chip:hover { background: #ece9e3; }
+.input-row { padding: 12px 20px; border-top: 0.5px solid #eee; display: flex; gap: 8px; align-items: flex-end; background: #fff; }
+.chat-input { flex: 1; height: 42px; padding: 9px 14px; font-size: 14px; font-family: sans-serif; border: 0.5px solid #ddd; border-radius: 8px; background: #fff; color: #1a1a1a; resize: none; outline: none; line-height: 1.5; }
+.chat-input:focus { border-color: #BA7517; }
+.send-btn { padding: 9px 18px; font-size: 14px; font-weight: 500; font-family: sans-serif; background: #E6F1FB; color: #185FA5; border: 0.5px solid #B5D4F4; border-radius: 8px; cursor: pointer; white-space: nowrap; }
+.send-btn:disabled { opacity: 0.4; cursor: default; }
+
+/* COMING SOON */
+.coming-soon { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh; gap: 16px; text-align: center; padding: 40px; }
+.cs-char { font-size: 100px; font-weight: 700; opacity: 0.05; line-height: 1; }
+.cs-title { font-size: 24px; font-weight: 600; letter-spacing: 0.05em; }
+.cs-sub { font-size: 14px; color: #888; font-family: sans-serif; line-height: 1.8; max-width: 360px; }
+.cs-tag { font-size: 12px; font-family: sans-serif; border: 0.5px solid #ddd; color: #aaa; padding: 4px 14px; border-radius: 99px; }
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-thumb { background: #ddd; border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="nav-left">
+    <div class="site-title" onclick="showHome()">倪師<span>學習網</span></div>
+    <div class="nav-sub">倪海厦老师经典课程 · 系统学习平台</div>
+  </div>
+  <div class="nav-badge">个人学习版 Beta</div>
+</nav>
+
+<!-- HOME -->
+<div id="view-home" class="view active">
+  <div class="home-hero">
+    <h1>倪師<span>學習網</span></h1>
+    <p>倪海厦老师毕生致力于传承汉唐古中医，其教学体系涵盖针灸、本草、伤寒、金匮、内经、天纪六大领域。此站用于系统学习与温习，笔记来源：祝余整理版。</p>
+  </div>
+  <div class="subjects-section">
+    <div class="section-label">六大课程板块</div>
+    <div class="subjects-grid" id="subjects-grid"></div>
+  </div>
+</div>
+
+<!-- 针灸 -->
+<div id="view-zhenjiu" class="view">
+  <div class="page-nav">
+    <button class="back-btn" onclick="showHome()">← 返回</button>
+    <div class="breadcrumb">倪师学习网 › <span>针灸大成</span></div>
+  </div>
+  <div class="bot-wrap">
+    <div class="bot-sidebar">
+      <div class="sidebar-head">课题导航</div>
+      <div class="topic-list" id="topic-list"></div>
+      <div class="quiz-area">
+        <button class="quiz-btn" onclick="triggerQuiz()">出题考我 ↗</button>
+      </div>
+    </div>
+    <div class="bot-main">
+      <div class="messages-area" id="messages"></div>
+      <div class="quick-row">
+        <button class="quick-chip" onclick="sendMsg('什么是左病右治？')">左病右治</button>
+        <button class="quick-chip" onclick="sendMsg('涌泉穴在哪里，如何取穴？')">涌泉穴</button>
+        <button class="quick-chip" onclick="sendMsg('十二经流注顺序是什么？')">十二经流注</button>
+        <button class="quick-chip" onclick="sendMsg('艾灸有哪些禁忌？')">艾灸禁忌</button>
+        <button class="quick-chip" onclick="sendMsg('合谷穴的主治和取穴方法')">合谷穴</button>
+      </div>
+      <div class="input-row">
+        <textarea id="chat-input" class="chat-input" placeholder="问任何针灸、穴位、经络问题…"></textarea>
+        <button class="send-btn" id="send-btn" onclick="doSend()">发送</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- COMING SOON -->
+<div id="view-soon" class="view">
+  <div class="page-nav">
+    <button class="back-btn" onclick="showHome()">← 返回</button>
+    <div class="breadcrumb">倪师学习网 › <span id="soon-name">敬请期待</span></div>
+  </div>
+  <div class="coming-soon">
+    <div class="cs-char" id="soon-char">经</div>
+    <div class="cs-title" id="soon-title">即将上线</div>
+    <div class="cs-sub" id="soon-desc">此板块正在整理中，笔记和教学机器人将陆续加入。</div>
+    <div class="cs-tag">敬请期待</div>
+  </div>
+</div>
+
+<script>
+const SUBJECTS = [
+  { id:'zhenjiu', name:'针灸大成', char:'针', sub:'十二经络 · 穴位取穴 · 临床治症', color:'#BA7517', live:true },
+  { id:'bencao', name:'神农本草经', char:'草', sub:'药物性味 · 归经主治 · 配伍法则', color:'#3B6D11', live:false, soonTitle:'神农本草经', soonDesc:'药物性味归经、上中下三品分类及临床应用笔记整理中。' },
+  { id:'shanghan', name:'伤寒论', char:'寒', sub:'六经辨证 · 汤方解析 · 临证思维', color:'#185FA5', live:false, soonTitle:'伤寒论', soonDesc:'六经辨证体系、条文解析与汉唐经方临床应用笔记整理中。' },
+  { id:'jingui', name:'金匮要略', char:'金', sub:'杂病辨治 · 方证对应 · 脏腑辨证', color:'#854F0B', live:false, soonTitle:'金匮要略', soonDesc:'杂病证治精义、方证对应规律及倪师独家解读笔记整理中。' },
+  { id:'neijing', name:'黄帝内经', char:'经', sub:'阴阳五行 · 藏象学说 · 治则治法', color:'#0F6E56', live:false, soonTitle:'黄帝内经', soonDesc:'阴阳五行、脏腑经络理论基础及内经原文精读笔记整理中。' },
+  { id:'tianji', name:'天纪', char:'天', sub:'天文历法 · 易经预测 · 气运推算', color:'#533AB7', live:false, soonTitle:'天纪', soonDesc:'天文历法与中医气运的关联、倪师天纪课程精华笔记整理中。' },
+];
+
+function buildGrid() {
+  const grid = document.getElementById('subjects-grid');
+  SUBJECTS.forEach(s => {
+    const card = document.createElement('div');
+    card.className = 'subject-card' + (s.live ? '' : ' locked');
+    card.innerHTML = `<div class="card-accent" style="background:${s.color}"></div><div class="card-name">${s.name}</div><div class="card-sub">${s.sub}</div><div class="card-status">${s.live ? '<span class="status-live">● 已开放</span>' : '<span class="status-soon">○ 整理中</span>'}</div><div class="card-char" style="color:${s.color}">${s.char}</div>`;
+    card.onclick = s.live ? () => showSection(s.id) : () => showSoon(s);
+    grid.appendChild(card);
+  });
+}
+
+function showHome() {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-home').classList.add('active');
+}
+function showSection(id) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-' + id).classList.add('active');
+}
+function showSoon(s) {
+  document.getElementById('soon-name').textContent = s.soonTitle || s.name;
+  document.getElementById('soon-char').textContent = s.char;
+  document.getElementById('soon-title').textContent = s.soonTitle || s.name;
+  document.getElementById('soon-desc').textContent = s.soonDesc || '此板块正在整理中。';
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-soon').classList.add('active');
+}
+
+/* BOT */
+const TOPICS = ["艾灸基础与禁忌","急救方式与火罐","经络基础理论","十二经纳天干与子午流注","手太阴肺经","手阳明大肠经","人体运行简图","足阳明胃经","足太阴脾经","手少阴心经","手太阳小肠经","足太阳膀胱经","手少阳三焦经","足少阳胆经","足厥阴肝经","针灸治症：眼鼻耳","面部中风","其他临床治疗"];
+
+const KB = `【针灸基础原则】针可以用在所有的疾病上面。不能针：气血虚、重病、失血过多、刚行完房事、运动大汗之后、喝酒之后、体力不好。左病右治，右病左治。
+【艾灸基础与禁忌】1隔姜灸：姜片+艾绒，灸单数不灸双数；2隔盐：炒盐填满神阙，精盐不可；3隔蒜灸：蒜属白入肺，用于久咳；4米粒灸：凡士林打底。不能灸：手掌手背眼睛阴部痔疮汗多处热症。寒症吃什么拉什么；热症味道臭。病进从四肢向身体，病出从身体向四肢。
+【急救针法】发病/中风/溺水急救：1针人中 2手十宣放血 3脚十宣放血 4涌泉穴 5百会放血。百会取穴：耳尖连线与头顶正中线交点。
+【子午流注时间】肺3-5时，大肠5-7时，胃7-9时，脾9-11时，心11-13时，小肠13-15时，膀胱15-17时，肾17-19时，心包19-21时，三焦21-23时，胆23-1时，肝1-3时。
+【十二经纳天干】甲胆乙肝丙小肠丁心戊胃，己脾庚大肠辛肺壬膀胱癸肾，三焦心包寄于癸水。
+【八会穴】脏章门，腑中脘，气膻中，血膈俞，筋阳陵泉，脉太渊，骨大杼，髓悬钟。
+【手太阴肺经】中府→云门→天府→侠白→尺泽(合)→孔最(郄)→列缺(络，腕上1.5寸)→太渊(原/脉会)→鱼际→少商(井)。
+【手阳明大肠经】商阳(井)→合谷(原，面口合谷收)→阳溪→偏历(络)→曲池(合，退烧)→肩髃→迎香(鼻翼旁)。
+【足阳明胃经】承泣→四白→地仓→颊车→天枢(大肠募，脐旁2寸)→足三里(合，犊鼻下3寸，强壮穴)→丰隆(络)→厉兑(井)。
+【足太阴脾经】隐白→公孙(络，通冲脉)→三阴交(内踝上3寸，妇科要穴)→阴陵泉(合)→血海→大包(脾大络)。
+【手少阴心经】极泉→少海(合)→通里(络)→神门(原，腕横纹尺侧)→少冲(井)。
+【手太阳小肠经】少泽(井)→后溪(输，通督脉)→腕骨(原)→养老(郄)→支正(络)→小海(合)→听宫。
+【足太阳膀胱经】睛明→攒竹→天柱→背俞穴(脊柱旁1.5寸)→委中(合，腰背委中求)→承山→昆仑→至阴(井，矫正胎位)。
+【手少阳三焦经】关冲→液门→中渚→阳池(原)→外关(络，通阳维)→支沟(经)→天井(合)→翳风→耳门→丝竹空。
+【足少阳胆经】瞳子髎→听会→风池(重要穴)→肩井→京门(肾募)→带脉→环跳→风市→阳陵泉(合/筋会)→悬钟(髓会)→丘墟(原)→足临泣(输)→足窍阴(井)。
+【足厥阴肝经】大敦(井)→行间(荥)→太冲(输/原，四关穴)→中封→蠡沟(络)→中都(郄)→曲泉(合)→章门(五脏会/脾募)→期门(肝募)。
+【治眼症】赤红肿痛：攒竹+丝竹空+耳尖+太阳点刺放血；近视：睛明+阳白+三间+养老+光明。肝开窍于目。
+【治鼻症】肺开窍于鼻。鼻息肉：迎香透内迎香+合谷；流鼻血：天府+合谷。
+【治耳症】肾开窍于耳。虚症：补肾，肾俞志室京门章门复溜；局部：耳门听宫听会；实症：外关支沟。
+【面部中风】患侧下关地仓颊车太阳；健侧合谷；人中+承浆固定。成因：大汗后吹冷气。
+【四关穴】合谷+太冲，理气行血，全身调节。`;
+
+const SYS = `你是一位针灸教学助手，专门根据祝余整理的《针灸大成学习笔记》（倪海厦老师视频内容）来教学。核心笔记：\n${KB}\n\n教学原则：1.以笔记为主，结合正统中医针灸知识补充 2.用中文回答，清晰结构化 3.穴位说明位置功效取穴法 4.考题模式出题后等用户回答再给解析 5.语气像经验丰富的中医老师`;
+
+let chatHistory = [], isLoading = false, activeTopic = null;
+
+function buildTopics() {
+  const list = document.getElementById('topic-list');
+  TOPICS.forEach(t => {
+    const btn = document.createElement('button');
+    btn.className = 'topic-btn'; btn.textContent = t;
+    btn.onclick = () => {
+      document.querySelectorAll('.topic-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active'); activeTopic = t;
+      sendMsg(`请系统讲解"${t}"，包括要点、穴位和临床应用。`);
+    };
+    list.appendChild(btn);
+  });
+}
+
+function triggerQuiz() { sendMsg(`请出一道${activeTopic ? '关于"' + activeTopic + '"的' : ''}针灸考题测验我。`); }
+
+function addMsg(role, text) {
+  const area = document.getElementById('messages');
+  const row = document.createElement('div'); row.className = 'msg-row ' + role;
+  if (role === 'assistant') { row.innerHTML = `<div class="msg-avatar">针</div><div class="msg-bubble assistant"></div>`; row.querySelector('.msg-bubble').textContent = text; }
+  else { row.innerHTML = `<div class="msg-bubble user"></div>`; row.querySelector('.msg-bubble').textContent = text; }
+  area.appendChild(row); area.scrollTop = area.scrollHeight;
+}
+
+async function sendMsg(text) {
+  if (!text || !text.trim() || isLoading) return;
+  isLoading = true;
+  document.getElementById('send-btn').disabled = true;
+  document.getElementById('chat-input').disabled = true;
+  document.getElementById('chat-input').value = '';
+  addMsg('user', text); chatHistory.push({ role:'user', content:text });
+  const typing = document.createElement('div'); typing.id = 'typing'; typing.className = 'msg-row assistant';
+  typing.innerHTML = '<div class="msg-avatar">针</div><div class="msg-bubble assistant" style="color:#aaa;font-style:italic">思考中…</div>';
+  document.getElementById('messages').appendChild(typing); document.getElementById('messages').scrollTop = 99999;
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ model:'claude-sonnet-4-20250514', max_tokens:1000, system:SYS, messages:chatHistory.slice(-12) }) });
+    const data = await res.json();
+    const reply = data.content?.[0]?.text || '抱歉，无法获取回复。';
+    document.getElementById('typing')?.remove(); addMsg('assistant', reply); chatHistory.push({ role:'assistant', content:reply });
+  } catch(e) { document.getElementById('typing')?.remove(); addMsg('assistant', '连接错误，请稍后重试。'); }
+  isLoading = false; document.getElementById('send-btn').disabled = false; document.getElementById('chat-input').disabled = false;
+}
+
+function doSend() { sendMsg(document.getElementById('chat-input').value); }
+document.getElementById('chat-input').addEventListener('keydown', e => { if (e.key==='Enter' && !e.shiftKey) { e.preventDefault(); doSend(); } });
+
+buildGrid(); buildTopics();
+addMsg('assistant', '你好！我是针灸大成教学助手，笔记来源：祝余整理（倪海厦老师视频）。\n\n· 点左边课题 → 系统讲解该章\n· 直接提问 → 穴位位置、经络走向、临床用法\n· 「出题考我」→ 测验掌握程度\n\n从哪里开始？');
+</script>
+</body>
+</html>
