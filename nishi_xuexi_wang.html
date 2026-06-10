@@ -10,30 +10,45 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: 'Noto Serif SC', serif; background: #faf9f6; color: #1a1a1a; min-height: 100vh; }
 
+/* API KEY MODAL */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 999; display: flex; align-items: center; justify-content: center; }
+.modal-overlay.hidden { display: none; }
+.modal-box { background: #fff; border-radius: 14px; padding: 32px 36px; width: 440px; max-width: 92vw; box-shadow: 0 20px 60px rgba(0,0,0,0.2); }
+.modal-title { font-size: 19px; font-weight: 700; margin-bottom: 8px; letter-spacing: 0.03em; }
+.modal-sub { font-size: 13px; color: #666; font-family: sans-serif; line-height: 1.7; margin-bottom: 20px; }
+.modal-sub a { color: #BA7517; text-decoration: none; }
+.modal-sub a:hover { text-decoration: underline; }
+.modal-input { width: 100%; padding: 10px 14px; font-size: 13px; font-family: sans-serif; border: 0.5px solid #ccc; border-radius: 8px; outline: none; background: #f8f6f0; color: #1a1a1a; letter-spacing: 0.04em; }
+.modal-input:focus { border-color: #BA7517; }
+.modal-hint { font-size: 11.5px; color: #aaa; font-family: sans-serif; margin-top: 7px; }
+.modal-btn { width: 100%; margin-top: 18px; padding: 11px 0; font-size: 14px; font-weight: 600; font-family: sans-serif; background: #BA7517; color: #fff; border: none; border-radius: 8px; cursor: pointer; letter-spacing: 0.03em; }
+.modal-btn:hover { opacity: 0.9; }
+.modal-btn:disabled { opacity: 0.45; cursor: default; }
+
 /* NAV */
-.site-nav { padding: 0 40px; height: 60px; display: flex; align-items: center; gap: 16px; border-bottom: 0.5px solid #ddd; background: #fff; position: sticky; top: 0; z-index: 100; }
-.nav-left { display: flex; align-items: baseline; gap: 14px; }
-.site-title { font-size: 22px; font-weight: 700; color: #1a1a1a; letter-spacing: 0.06em; cursor: pointer; }
+.site-nav { padding: 0 40px; height: 58px; display: flex; align-items: center; gap: 16px; border-bottom: 0.5px solid #ddd; background: #fff; position: sticky; top: 0; z-index: 100; }
+.site-title { font-size: 21px; font-weight: 700; color: #1a1a1a; letter-spacing: 0.06em; cursor: pointer; }
 .site-title span { color: #BA7517; }
 .nav-sub { font-size: 12px; color: #888; font-family: sans-serif; }
-.nav-badge { margin-left: auto; font-size: 11px; font-family: sans-serif; color: #aaa; border: 0.5px solid #ddd; padding: 3px 10px; border-radius: 4px; }
+.nav-right { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+.nav-badge { font-size: 11px; font-family: sans-serif; color: #aaa; border: 0.5px solid #ddd; padding: 3px 10px; border-radius: 4px; }
+.api-indicator { font-size: 11px; font-family: sans-serif; color: #3B6D11; background: #EAF3DE; padding: 3px 10px; border-radius: 4px; cursor: pointer; border: 0.5px solid #c5dfa8; }
+.api-indicator.missing { color: #8B3A0F; background: #FDE9DC; border-color: #f5b99c; }
 
 /* HOME */
-.home-hero { padding: 48px 40px 32px; border-bottom: 0.5px solid #eee; max-width: 760px; }
-.home-hero h1 { font-size: 36px; font-weight: 700; letter-spacing: 0.05em; margin-bottom: 12px; }
+.home-hero { padding: 44px 40px 28px; border-bottom: 0.5px solid #eee; }
+.home-hero h1 { font-size: 34px; font-weight: 700; letter-spacing: 0.05em; margin-bottom: 10px; }
 .home-hero h1 span { color: #BA7517; }
 .home-hero p { font-size: 14px; color: #666; font-family: sans-serif; line-height: 1.8; max-width: 560px; }
-
-.subjects-section { padding: 32px 40px; }
-.section-label { font-size: 11px; font-family: sans-serif; color: #aaa; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 20px; }
-.subjects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 900px; }
-
-.subject-card { background: #fff; border: 0.5px solid #e5e5e5; border-radius: 12px; padding: 24px; cursor: pointer; position: relative; overflow: hidden; transition: box-shadow 0.2s, transform 0.15s; min-height: 170px; display: flex; flex-direction: column; gap: 8px; }
-.subject-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.08); transform: translateY(-2px); }
-.subject-card.locked:hover { transform: none; box-shadow: none; cursor: default; }
-.card-char { font-size: 56px; font-weight: 700; line-height: 1; position: absolute; right: 16px; bottom: 10px; opacity: 0.06; }
-.card-accent { width: 32px; height: 3px; border-radius: 2px; margin-bottom: 6px; }
-.card-name { font-size: 19px; font-weight: 600; letter-spacing: 0.04em; }
+.subjects-section { padding: 28px 40px; }
+.section-label { font-size: 11px; font-family: sans-serif; color: #aaa; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 18px; }
+.subjects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; max-width: 900px; }
+.subject-card { background: #fff; border: 0.5px solid #e5e5e5; border-radius: 12px; padding: 22px; cursor: pointer; position: relative; overflow: hidden; transition: box-shadow 0.2s, transform 0.15s; min-height: 162px; display: flex; flex-direction: column; gap: 7px; }
+.subject-card:hover:not(.locked) { box-shadow: 0 4px 18px rgba(0,0,0,0.08); transform: translateY(-2px); }
+.subject-card.locked { cursor: default; }
+.card-char { font-size: 54px; font-weight: 700; line-height: 1; position: absolute; right: 14px; bottom: 8px; opacity: 0.06; }
+.card-accent { width: 30px; height: 3px; border-radius: 2px; margin-bottom: 5px; }
+.card-name { font-size: 18px; font-weight: 600; letter-spacing: 0.04em; }
 .card-sub { font-size: 12px; color: #888; font-family: sans-serif; line-height: 1.6; }
 .card-status { margin-top: auto; font-size: 11px; font-family: sans-serif; }
 .status-live { color: #3B6D11; background: #EAF3DE; padding: 2px 9px; border-radius: 99px; }
@@ -42,45 +57,43 @@ body { font-family: 'Noto Serif SC', serif; background: #faf9f6; color: #1a1a1a;
 /* PAGE VIEWS */
 .view { display: none; }
 .view.active { display: block; }
-
-.page-nav { display: flex; align-items: center; gap: 12px; padding: 12px 24px; border-bottom: 0.5px solid #eee; background: #f9f9f7; }
-.back-btn { background: #fff; border: 0.5px solid #ddd; cursor: pointer; padding: 5px 14px; font-size: 13px; font-family: sans-serif; color: #666; border-radius: 6px; display: flex; align-items: center; gap: 5px; }
+.page-nav { display: flex; align-items: center; gap: 12px; padding: 11px 24px; border-bottom: 0.5px solid #eee; background: #f9f9f7; }
+.back-btn { background: #fff; border: 0.5px solid #ddd; cursor: pointer; padding: 5px 14px; font-size: 13px; font-family: sans-serif; color: #666; border-radius: 6px; }
 .back-btn:hover { background: #f5f5f5; }
 .breadcrumb { font-size: 13px; color: #888; font-family: sans-serif; }
 .breadcrumb span { color: #1a1a1a; font-weight: 500; }
 
 /* BOT */
-.bot-wrap { display: flex; height: calc(100vh - 121px); }
-.bot-sidebar { width: 200px; flex-shrink: 0; border-right: 0.5px solid #eee; display: flex; flex-direction: column; background: #f9f9f7; }
-.sidebar-head { padding: 12px 16px 9px; border-bottom: 0.5px solid #eee; font-size: 10.5px; font-weight: 500; color: #aaa; font-family: sans-serif; letter-spacing: 0.08em; text-transform: uppercase; }
+.bot-wrap { display: flex; height: calc(100vh - 103px); }
+.bot-sidebar { width: 196px; flex-shrink: 0; border-right: 0.5px solid #eee; display: flex; flex-direction: column; background: #f9f9f7; }
+.sidebar-head { padding: 11px 15px 8px; border-bottom: 0.5px solid #eee; font-size: 10.5px; font-weight: 500; color: #aaa; font-family: sans-serif; letter-spacing: 0.08em; text-transform: uppercase; }
 .topic-list { flex: 1; overflow-y: auto; padding: 5px 0; }
-.topic-btn { display: block; width: 100%; text-align: left; padding: 7px 16px; font-size: 12.5px; font-family: sans-serif; border: none; background: transparent; color: #666; cursor: pointer; line-height: 1.5; }
+.topic-btn { display: block; width: 100%; text-align: left; padding: 7px 15px; font-size: 12.5px; font-family: sans-serif; border: none; background: transparent; color: #666; cursor: pointer; line-height: 1.5; }
 .topic-btn:hover { background: #f0ede8; }
 .topic-btn.active { background: #FAEEDA; color: #BA7517; }
-.quiz-area { padding: 12px 14px; border-top: 0.5px solid #eee; }
-.quiz-btn { width: 100%; padding: 8px 0; font-size: 13px; font-weight: 500; font-family: sans-serif; background: #E6F1FB; color: #185FA5; border: 0.5px solid #B5D4F4; border-radius: 8px; cursor: pointer; }
-
+.quiz-area { padding: 10px 12px; border-top: 0.5px solid #eee; }
+.quiz-btn { width: 100%; padding: 7px 0; font-size: 12.5px; font-weight: 500; font-family: sans-serif; background: #E6F1FB; color: #185FA5; border: 0.5px solid #B5D4F4; border-radius: 7px; cursor: pointer; }
 .bot-main { flex: 1; display: flex; flex-direction: column; min-width: 0; background: #fff; }
-.messages-area { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 12px; }
+.messages-area { flex: 1; overflow-y: auto; padding: 18px; display: flex; flex-direction: column; gap: 12px; }
 .msg-row { display: flex; }
 .msg-row.user { justify-content: flex-end; }
-.msg-avatar { width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0; background: #FAEEDA; color: #BA7517; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; margin-right: 8px; margin-top: 2px; font-family: sans-serif; }
-.msg-bubble { max-width: 72%; padding: 10px 14px; font-size: 14px; font-family: sans-serif; line-height: 1.7; word-break: break-word; white-space: pre-wrap; }
-.msg-bubble.assistant { border-radius: 3px 14px 14px 14px; background: #f7f5f0; color: #1a1a1a; border: 0.5px solid #e8e4dd; }
-.msg-bubble.user { border-radius: 14px 3px 14px 14px; background: #E6F1FB; color: #185FA5; border: 0.5px solid #B5D4F4; }
-.quick-row { padding: 0 20px 8px; display: flex; gap: 6px; flex-wrap: wrap; }
-.quick-chip { padding: 4px 10px; font-size: 12px; font-family: sans-serif; border-radius: 999px; background: #f5f3ef; color: #666; border: 0.5px solid #ddd; cursor: pointer; white-space: nowrap; }
+.msg-avatar { width: 27px; height: 27px; border-radius: 50%; flex-shrink: 0; background: #FAEEDA; color: #BA7517; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; margin-right: 8px; margin-top: 2px; font-family: sans-serif; }
+.msg-bubble { max-width: 74%; padding: 10px 14px; font-size: 13.5px; font-family: sans-serif; line-height: 1.7; border: 0.5px solid #e8e4dd; word-break: break-word; white-space: pre-wrap; }
+.msg-bubble.assistant { border-radius: 3px 13px 13px 13px; background: #f7f5f0; color: #1a1a1a; }
+.msg-bubble.user { border-radius: 13px 3px 13px 13px; background: #E6F1FB; color: #185FA5; border-color: #B5D4F4; }
+.quick-row { padding: 0 18px 8px; display: flex; gap: 5px; flex-wrap: wrap; }
+.quick-chip { padding: 3px 10px; font-size: 11.5px; font-family: sans-serif; border-radius: 999px; background: #f5f3ef; color: #666; border: 0.5px solid #ddd; cursor: pointer; white-space: nowrap; }
 .quick-chip:hover { background: #ece9e3; }
-.input-row { padding: 12px 20px; border-top: 0.5px solid #eee; display: flex; gap: 8px; align-items: flex-end; background: #fff; }
-.chat-input { flex: 1; height: 42px; padding: 9px 14px; font-size: 14px; font-family: sans-serif; border: 0.5px solid #ddd; border-radius: 8px; background: #fff; color: #1a1a1a; resize: none; outline: none; line-height: 1.5; }
+.input-row { padding: 11px 18px; border-top: 0.5px solid #eee; display: flex; gap: 8px; align-items: flex-end; }
+.chat-input { flex: 1; height: 40px; padding: 8px 13px; font-size: 13.5px; font-family: sans-serif; border: 0.5px solid #ddd; border-radius: 8px; background: #fff; color: #1a1a1a; resize: none; outline: none; line-height: 1.5; }
 .chat-input:focus { border-color: #BA7517; }
-.send-btn { padding: 9px 18px; font-size: 14px; font-weight: 500; font-family: sans-serif; background: #E6F1FB; color: #185FA5; border: 0.5px solid #B5D4F4; border-radius: 8px; cursor: pointer; white-space: nowrap; }
+.send-btn { padding: 8px 16px; font-size: 13.5px; font-weight: 500; font-family: sans-serif; background: #E6F1FB; color: #185FA5; border: 0.5px solid #B5D4F4; border-radius: 8px; cursor: pointer; }
 .send-btn:disabled { opacity: 0.4; cursor: default; }
 
 /* COMING SOON */
 .coming-soon { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh; gap: 16px; text-align: center; padding: 40px; }
-.cs-char { font-size: 100px; font-weight: 700; opacity: 0.05; line-height: 1; }
-.cs-title { font-size: 24px; font-weight: 600; letter-spacing: 0.05em; }
+.cs-char { font-size: 96px; font-weight: 700; opacity: 0.05; line-height: 1; }
+.cs-title { font-size: 23px; font-weight: 600; letter-spacing: 0.05em; }
 .cs-sub { font-size: 14px; color: #888; font-family: sans-serif; line-height: 1.8; max-width: 360px; }
 .cs-tag { font-size: 12px; font-family: sans-serif; border: 0.5px solid #ddd; color: #aaa; padding: 4px 14px; border-radius: 99px; }
 
@@ -90,12 +103,30 @@ body { font-family: 'Noto Serif SC', serif; background: #faf9f6; color: #1a1a1a;
 </head>
 <body>
 
-<nav class="site-nav">
-  <div class="nav-left">
-    <div class="site-title" onclick="showHome()">倪師<span>學習網</span></div>
-    <div class="nav-sub">倪海厦老师经典课程 · 系统学习平台</div>
+<!-- API KEY MODAL -->
+<div class="modal-overlay" id="api-modal">
+  <div class="modal-box">
+    <div class="modal-title">🔑 输入 Anthropic API Key</div>
+    <div class="modal-sub">
+      教学 AI 需要通过 Anthropic API 运行。请前往
+      <a href="https://console.anthropic.com/settings/keys" target="_blank">console.anthropic.com</a>
+      获取你的 API Key，粘贴到下方。<br><br>
+      Key 仅储存在你的浏览器本地，不会发送到任何其他服务器。
+    </div>
+    <input type="password" class="modal-input" id="api-key-input" placeholder="sk-ant-api03-..." />
+    <div class="modal-hint">格式：sk-ant-api03-xxxx…（以 sk-ant 开头）</div>
+    <button class="modal-btn" id="api-save-btn" onclick="saveApiKey()">保存并开始学习</button>
   </div>
-  <div class="nav-badge">个人学习版 Beta</div>
+</div>
+
+<!-- NAV -->
+<nav class="site-nav">
+  <div class="site-title" onclick="showHome()">倪師<span>學習網</span></div>
+  <div class="nav-sub">倪海厦老师经典课程 · 系统学习平台</div>
+  <div class="nav-right">
+    <div id="api-status" class="api-indicator missing" onclick="resetApiKey()">⚠ 未设置 Key</div>
+    <div class="nav-badge">个人学习版 Beta</div>
+  </div>
 </nav>
 
 <!-- HOME -->
@@ -156,6 +187,51 @@ body { font-family: 'Noto Serif SC', serif; background: #faf9f6; color: #1a1a1a;
 </div>
 
 <script>
+// ── API KEY ──
+let API_KEY = localStorage.getItem('nishi_api_key') || '';
+
+function updateApiStatus() {
+  const el = document.getElementById('api-status');
+  if (API_KEY && API_KEY.startsWith('sk-ant')) {
+    el.textContent = '✓ API Key 已设置';
+    el.className = 'api-indicator';
+  } else {
+    el.textContent = '⚠ 未设置 Key';
+    el.className = 'api-indicator missing';
+  }
+}
+
+function saveApiKey() {
+  const val = document.getElementById('api-key-input').value.trim();
+  if (!val.startsWith('sk-ant')) {
+    alert('格式不对，Key 应以 sk-ant 开头');
+    return;
+  }
+  API_KEY = val;
+  localStorage.setItem('nishi_api_key', val);
+  document.getElementById('api-modal').classList.add('hidden');
+  updateApiStatus();
+}
+
+function resetApiKey() {
+  document.getElementById('api-key-input').value = API_KEY;
+  document.getElementById('api-modal').classList.remove('hidden');
+}
+
+// Show modal if no key
+window.addEventListener('DOMContentLoaded', () => {
+  updateApiStatus();
+  if (!API_KEY || !API_KEY.startsWith('sk-ant')) {
+    document.getElementById('api-modal').classList.remove('hidden');
+  } else {
+    document.getElementById('api-modal').classList.add('hidden');
+  }
+  document.getElementById('api-key-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') saveApiKey();
+  });
+});
+
+// ── SUBJECTS ──
 const SUBJECTS = [
   { id:'zhenjiu', name:'针灸大成', char:'针', sub:'十二经络 · 穴位取穴 · 临床治症', color:'#BA7517', live:true },
   { id:'bencao', name:'神农本草经', char:'草', sub:'药物性味 · 归经主治 · 配伍法则', color:'#3B6D11', live:false, soonTitle:'神农本草经', soonDesc:'药物性味归经、上中下三品分类及临床应用笔记整理中。' },
@@ -193,28 +269,28 @@ function showSoon(s) {
   document.getElementById('view-soon').classList.add('active');
 }
 
-/* BOT */
+// ── BOT ──
 const TOPICS = ["艾灸基础与禁忌","急救方式与火罐","经络基础理论","十二经纳天干与子午流注","手太阴肺经","手阳明大肠经","人体运行简图","足阳明胃经","足太阴脾经","手少阴心经","手太阳小肠经","足太阳膀胱经","手少阳三焦经","足少阳胆经","足厥阴肝经","针灸治症：眼鼻耳","面部中风","其他临床治疗"];
 
 const KB = `【针灸基础原则】针可以用在所有的疾病上面。不能针：气血虚、重病、失血过多、刚行完房事、运动大汗之后、喝酒之后、体力不好。左病右治，右病左治。
 【艾灸基础与禁忌】1隔姜灸：姜片+艾绒，灸单数不灸双数；2隔盐：炒盐填满神阙，精盐不可；3隔蒜灸：蒜属白入肺，用于久咳；4米粒灸：凡士林打底。不能灸：手掌手背眼睛阴部痔疮汗多处热症。寒症吃什么拉什么；热症味道臭。病进从四肢向身体，病出从身体向四肢。
-【急救针法】发病/中风/溺水急救：1针人中 2手十宣放血 3脚十宣放血 4涌泉穴 5百会放血。百会取穴：耳尖连线与头顶正中线交点。
+【急救针法】发病/中风/溺水急救：1针人中 2手十宣放血 3脚十宣放血 4涌泉穴（脚掌前1/3凹陷处） 5百会放血（耳尖连线与头顶正中线交点）。火罐：吸脓淤血；禁止：乳中多汗头部。
 【子午流注时间】肺3-5时，大肠5-7时，胃7-9时，脾9-11时，心11-13时，小肠13-15时，膀胱15-17时，肾17-19时，心包19-21时，三焦21-23时，胆23-1时，肝1-3时。
 【十二经纳天干】甲胆乙肝丙小肠丁心戊胃，己脾庚大肠辛肺壬膀胱癸肾，三焦心包寄于癸水。
 【八会穴】脏章门，腑中脘，气膻中，血膈俞，筋阳陵泉，脉太渊，骨大杼，髓悬钟。
-【手太阴肺经】中府→云门→天府→侠白→尺泽(合)→孔最(郄)→列缺(络，腕上1.5寸)→太渊(原/脉会)→鱼际→少商(井)。
+【手太阴肺经】中府(募穴)→云门→天府→侠白→尺泽(合)→孔最(郄)→列缺(络，腕上1.5寸)→太渊(原/脉会)→鱼际→少商(井)。
 【手阳明大肠经】商阳(井)→合谷(原，面口合谷收)→阳溪→偏历(络)→曲池(合，退烧)→肩髃→迎香(鼻翼旁)。
 【足阳明胃经】承泣→四白→地仓→颊车→天枢(大肠募，脐旁2寸)→足三里(合，犊鼻下3寸，强壮穴)→丰隆(络)→厉兑(井)。
-【足太阴脾经】隐白→公孙(络，通冲脉)→三阴交(内踝上3寸，妇科要穴)→阴陵泉(合)→血海→大包(脾大络)。
+【足太阴脾经】隐白→公孙(络，通冲脉)→三阴交(内踝上3寸，妇科要穴)→阴陵泉(合)→血海→大包。
 【手少阴心经】极泉→少海(合)→通里(络)→神门(原，腕横纹尺侧)→少冲(井)。
 【手太阳小肠经】少泽(井)→后溪(输，通督脉)→腕骨(原)→养老(郄)→支正(络)→小海(合)→听宫。
 【足太阳膀胱经】睛明→攒竹→天柱→背俞穴(脊柱旁1.5寸)→委中(合，腰背委中求)→承山→昆仑→至阴(井，矫正胎位)。
 【手少阳三焦经】关冲→液门→中渚→阳池(原)→外关(络，通阳维)→支沟(经)→天井(合)→翳风→耳门→丝竹空。
-【足少阳胆经】瞳子髎→听会→风池(重要穴)→肩井→京门(肾募)→带脉→环跳→风市→阳陵泉(合/筋会)→悬钟(髓会)→丘墟(原)→足临泣(输)→足窍阴(井)。
+【足少阳胆经】瞳子髎→听会→风池(重要穴)→肩井→京门(肾募)→带脉→环跳→风市→阳陵泉(合/筋会)→悬钟(髓会)→丘墟(原)→足临泣→足窍阴(井)。
 【足厥阴肝经】大敦(井)→行间(荥)→太冲(输/原，四关穴)→中封→蠡沟(络)→中都(郄)→曲泉(合)→章门(五脏会/脾募)→期门(肝募)。
-【治眼症】赤红肿痛：攒竹+丝竹空+耳尖+太阳点刺放血；近视：睛明+阳白+三间+养老+光明。肝开窍于目。
+【治眼症】赤红肿痛：攒竹+丝竹空+耳尖+太阳点刺放血；近视：睛明+阳白+三间+养老+光明；肝开窍于目，扎期门。
 【治鼻症】肺开窍于鼻。鼻息肉：迎香透内迎香+合谷；流鼻血：天府+合谷。
-【治耳症】肾开窍于耳。虚症：补肾，肾俞志室京门章门复溜；局部：耳门听宫听会；实症：外关支沟。
+【治耳症】肾开窍于耳。虚症：肾俞志室京门章门复溜；局部：耳门听宫听会；实症：外关支沟。
 【面部中风】患侧下关地仓颊车太阳；健侧合谷；人中+承浆固定。成因：大汗后吹冷气。
 【四关穴】合谷+太冲，理气行血，全身调节。`;
 
@@ -248,6 +324,10 @@ function addMsg(role, text) {
 
 async function sendMsg(text) {
   if (!text || !text.trim() || isLoading) return;
+  if (!API_KEY || !API_KEY.startsWith('sk-ant')) {
+    document.getElementById('api-modal').classList.remove('hidden');
+    return;
+  }
   isLoading = true;
   document.getElementById('send-btn').disabled = true;
   document.getElementById('chat-input').disabled = true;
@@ -257,16 +337,22 @@ async function sendMsg(text) {
   typing.innerHTML = '<div class="msg-avatar">针</div><div class="msg-bubble assistant" style="color:#aaa;font-style:italic">思考中…</div>';
   document.getElementById('messages').appendChild(typing); document.getElementById('messages').scrollTop = 99999;
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ model:'claude-sonnet-4-20250514', max_tokens:1000, system:SYS, messages:chatHistory.slice(-12) }) });
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-api-key': API_KEY, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
+      body: JSON.stringify({ model: 'claude-opus-4-6', max_tokens: 1000, system: SYS, messages: chatHistory.slice(-12) })
+    });
     const data = await res.json();
-    const reply = data.content?.[0]?.text || '抱歉，无法获取回复。';
+    const reply = data.content?.[0]?.text || (data.error ? `错误：${data.error.message}` : '抱歉，无法获取回复。');
     document.getElementById('typing')?.remove(); addMsg('assistant', reply); chatHistory.push({ role:'assistant', content:reply });
-  } catch(e) { document.getElementById('typing')?.remove(); addMsg('assistant', '连接错误，请稍后重试。'); }
+  } catch(e) {
+    document.getElementById('typing')?.remove(); addMsg('assistant', '连接错误，请检查 API Key 是否正确。');
+  }
   isLoading = false; document.getElementById('send-btn').disabled = false; document.getElementById('chat-input').disabled = false;
 }
 
 function doSend() { sendMsg(document.getElementById('chat-input').value); }
-document.getElementById('chat-input').addEventListener('keydown', e => { if (e.key==='Enter' && !e.shiftKey) { e.preventDefault(); doSend(); } });
+document.getElementById('chat-input').addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); doSend(); } });
 
 buildGrid(); buildTopics();
 addMsg('assistant', '你好！我是针灸大成教学助手，笔记来源：祝余整理（倪海厦老师视频）。\n\n· 点左边课题 → 系统讲解该章\n· 直接提问 → 穴位位置、经络走向、临床用法\n· 「出题考我」→ 测验掌握程度\n\n从哪里开始？');
